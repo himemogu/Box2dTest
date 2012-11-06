@@ -20,7 +20,7 @@ enum {
 PhysicsSprite::PhysicsSprite()
 : m_pBody(NULL)
 {
-
+    
 }
 
 void PhysicsSprite::setPhysicsBody(b2Body * body)
@@ -40,30 +40,30 @@ bool PhysicsSprite::isDirty(void)
 CCAffineTransform PhysicsSprite::nodeToParentTransform(void)
 {
     b2Vec2 pos  = m_pBody->GetPosition();
-
+    
     float x = pos.x * PTM_RATIO;
     float y = pos.y * PTM_RATIO;
-
+    
     if ( isIgnoreAnchorPointForPosition() ) {
         x += m_tAnchorPointInPoints.x;
         y += m_tAnchorPointInPoints.y;
     }
-
+    
     // Make matrix
     float radians = m_pBody->GetAngle();
     float c = cosf(radians);
     float s = sinf(radians);
-
+    
     if( ! CCPoint::CCPointEqualToPoint(m_tAnchorPointInPoints, CCPointZero) ){
         x += c*-m_tAnchorPointInPoints.x + -s*-m_tAnchorPointInPoints.y;
         y += s*-m_tAnchorPointInPoints.x + c*-m_tAnchorPointInPoints.y;
     }
-
+    
     // Rot, Translate Matrix
     m_tTransform = CCAffineTransformMake( c,  s,
-        -s,    c,
-        x,    y );
-
+                                         -s,    c,
+                                         x,    y );
+    
     return m_tTransform;
 }
 
@@ -71,19 +71,19 @@ HelloWorld::HelloWorld()
 {
     setTouchEnabled( true );
     setAccelerometerEnabled( true );
-
+    
     CCSize s = CCDirector::sharedDirector()->getWinSize();
     // init physics
     this->initPhysics();
-
+    
     CCSpriteBatchNode *parent = CCSpriteBatchNode::create("blocks.png", 100);
     m_pSpriteTexture = parent->getTexture();
-
+    
     addChild(parent, 0, kTagParentNode);
-
-
+    
+    
     addNewSpriteAtPosition(ccp(s.width/2, s.height/2));
-
+    
     CCLabelTTF *label = CCLabelTTF::create("Tap screen", "Marker Felt", 32);
     addChild(label, 0);
     label->setColor(ccc3(0,0,255));
@@ -102,21 +102,21 @@ HelloWorld::~HelloWorld()
 
 void HelloWorld::initPhysics()
 {
-
+    
     CCSize s = CCDirector::sharedDirector()->getWinSize();
-
+    
     b2Vec2 gravity;
     gravity.Set(0.0f, -10.0f);
     world = new b2World(gravity);
-
+    
     // Do we want to let bodies sleep?
     world->SetAllowSleeping(true);
-
+    
     world->SetContinuousPhysics(true);
-
-//     m_debugDraw = new GLESDebugDraw( PTM_RATIO );
-//     world->SetDebugDraw(m_debugDraw);
-
+    
+    //     m_debugDraw = new GLESDebugDraw( PTM_RATIO );
+    //     world->SetDebugDraw(m_debugDraw);
+    
     uint32 flags = 0;
     flags += b2Draw::e_shapeBit;
     //        flags += b2Draw::e_jointBit;
@@ -124,33 +124,33 @@ void HelloWorld::initPhysics()
     //        flags += b2Draw::e_pairBit;
     //        flags += b2Draw::e_centerOfMassBit;
     //m_debugDraw->SetFlags(flags);
-
-
+    
+    
     // Define the ground body.
     b2BodyDef groundBodyDef;
     groundBodyDef.position.Set(0, 0); // bottom-left corner
-
+    
     // Call the body factory which allocates memory for the ground body
     // from a pool and creates the ground box shape (also from a pool).
     // The body is also added to the world.
     b2Body* groundBody = world->CreateBody(&groundBodyDef);
-
+    
     // Define the ground box shape.
     b2EdgeShape groundBox;
-
+    
     // bottom
-
+    
     groundBox.Set(b2Vec2(0,0), b2Vec2(s.width/PTM_RATIO,0));
     groundBody->CreateFixture(&groundBox,0);
-
+    
     // top
     groundBox.Set(b2Vec2(0,s.height/PTM_RATIO), b2Vec2(s.width/PTM_RATIO,s.height/PTM_RATIO));
     groundBody->CreateFixture(&groundBox,0);
-
+    
     // left
     groundBox.Set(b2Vec2(0,s.height/PTM_RATIO), b2Vec2(0,0));
     groundBody->CreateFixture(&groundBox,0);
-
+    
     // right
     groundBox.Set(b2Vec2(s.width/PTM_RATIO,s.height/PTM_RATIO), b2Vec2(s.width/PTM_RATIO,0));
     groundBody->CreateFixture(&groundBox,0);
@@ -164,13 +164,13 @@ void HelloWorld::draw()
     // It is recommend to disable it
     //
     CCLayer::draw();
-
+    
     ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
-
+    
     kmGLPushMatrix();
-
+    
     world->DrawDebugData();
-
+    
     kmGLPopMatrix();
 }
 
@@ -205,7 +205,7 @@ void HelloWorld::addNewSpriteAtPosition(CCPoint p)
     
     // Define the dynamic body fixture.
     b2FixtureDef fixtureDef;
-    fixtureDef.shape = &dynamicBox;    
+    fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
     body->CreateFixture(&fixtureDef);
@@ -236,7 +236,7 @@ void HelloWorld::update(float dt)
             CCSprite* myActor = (CCSprite*)b->GetUserData();
             myActor->setPosition( CCPointMake( b->GetPosition().x * PTM_RATIO, b->GetPosition().y * PTM_RATIO) );
             myActor->setRotation( -1 * CC_RADIANS_TO_DEGREES(b->GetAngle()) );
-        }    
+        }
     }
 }
 
@@ -246,9 +246,9 @@ void HelloWorld::ccTouchesEnded(CCSet* touches, CCEvent* event)
     CCSetIterator it;
     CCTouch* touch;
     
-    for( it = touches->begin(); it != touches->end(); it++) 
+    for( it = touches->begin(); it != touches->end(); it++)
     {
-        touch = (CCTouch*)(*it);
+		touch = (CCTouch*)(*it);
         
         if(!touch)
             break;
