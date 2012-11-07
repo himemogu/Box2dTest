@@ -248,6 +248,7 @@
 		0D0B32D516475DC3005ED51E /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B32D416475DC3005ED51E /* AppDelegate.cpp */; };
 		0D0B32D816475DC3005ED51E /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0D0B32D716475DC3005ED51E /* HelloWorldScene.cpp */; };
 		0D0B32DA16475DC3005ED51E /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D0B32D916475DC3005ED51E /* blocks.png */; };
+		0DF27FFF164A192700816C84 /* GLES-Render.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0DF27FFD164A192700816C84 /* GLES-Render.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -772,6 +773,8 @@
 		0D0B32D616475DC3005ED51E /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
 		0D0B32D716475DC3005ED51E /* HelloWorldScene.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = HelloWorldScene.cpp; path = Classes/HelloWorldScene.cpp; sourceTree = "<group>"; };
 		0D0B32D916475DC3005ED51E /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blocks.png; path = Resources/blocks.png; sourceTree = "<group>"; };
+		0DF27FFD164A192700816C84 /* GLES-Render.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "GLES-Render.cpp"; path = "Classes/GLES-Render.cpp"; sourceTree = "<group>"; };
+		0DF27FFE164A192700816C84 /* GLES-Render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GLES-Render.h"; path = "Classes/GLES-Render.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1809,6 +1812,8 @@
 		0D0B32D216475DC3005ED51E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				0DF27FFD164A192700816C84 /* GLES-Render.cpp */,
+				0DF27FFE164A192700816C84 /* GLES-Render.h */,
 				0D0B32D316475DC3005ED51E /* AppDelegate.h */,
 				0D0B32D416475DC3005ED51E /* AppDelegate.cpp */,
 				0D0B32D616475DC3005ED51E /* HelloWorldScene.h */,
@@ -2109,6 +2114,7 @@
 				0D0B32CE16475DC2005ED51E /* b2Rope.cpp in Sources */,
 				0D0B32D516475DC3005ED51E /* AppDelegate.cpp in Sources */,
 				0D0B32D816475DC3005ED51E /* HelloWorldScene.cpp in Sources */,
+				0DF27FFF164A192700816C84 /* GLES-Render.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2242,6 +2248,7 @@
 				0D0B32DF16475DC3005ED51E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -97,7 +97,7 @@ HelloWorld::~HelloWorld()
     delete world;
     world = NULL;
     
-    //delete m_debugDraw;
+    delete m_debugDraw;
 }
 
 void HelloWorld::initPhysics()
@@ -114,16 +114,16 @@ void HelloWorld::initPhysics()
     
     world->SetContinuousPhysics(true);
     
-    //     m_debugDraw = new GLESDebugDraw( PTM_RATIO );
-    //     world->SetDebugDraw(m_debugDraw);
+    m_debugDraw = new GLESDebugDraw( PTM_RATIO );
+    world->SetDebugDraw(m_debugDraw);
     
     uint32 flags = 0;
     flags += b2Draw::e_shapeBit;
     //        flags += b2Draw::e_jointBit;
-    //        flags += b2Draw::e_aabbBit;
+            flags += b2Draw::e_aabbBit;
     //        flags += b2Draw::e_pairBit;
     //        flags += b2Draw::e_centerOfMassBit;
-    //m_debugDraw->SetFlags(flags);
+    m_debugDraw->SetFlags(flags);
     
     
     // Define the ground body.
@@ -162,7 +162,7 @@ void HelloWorld::draw()
     // IMPORTANT:
     // This is only for debug purposes
     // It is recommend to disable it
-    //
+	    //
     CCLayer::draw();
     
     ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position );
@@ -177,6 +177,7 @@ void HelloWorld::draw()
 void HelloWorld::addNewSpriteAtPosition(CCPoint p)
 {
     CCLOG("Add sprite %0.2f x %02.f",p.x,p.y);
+    // タグによりバッチノードを取り出す
     CCNode* parent = getChildByTag(kTagParentNode);
     
     //We have a 64x64 sprite sheet with 4 different 32x32 images.  The following code is
@@ -193,24 +194,29 @@ void HelloWorld::addNewSpriteAtPosition(CCPoint p)
     
     // Define the dynamic body.
     //Set up a 1m squared box in the physics world
+    // 物体の定義
     b2BodyDef bodyDef;
     bodyDef.type = b2_dynamicBody;
     bodyDef.position.Set(p.x/PTM_RATIO, p.y/PTM_RATIO);
     
     b2Body *body = world->CreateBody(&bodyDef);
+
+    body->SetLinearVelocity(b2Vec2(10, 5));
     
     // Define another box shape for our dynamic body.
+    // 物体の形
     b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(.5f, .5f);//These are mid points for our 1m box
+    dynamicBox.SetAsBox(.5f, .5f);// 0.5m(32pixelのスプライトで、PTM_RATIO=32なので)
     
     // Define the dynamic body fixture.
+    // 物体の属性
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.3f;
+    fixtureDef.density = 1.0f;  // 密度
+    fixtureDef.friction = 0.3f; // 摩擦
     body->CreateFixture(&fixtureDef);
     
-    sprite->setPhysicsBody(body);
+    sprite->setPhysicsBody(body); // スプライトとBox2d物体とのリンク
 }
 
 
