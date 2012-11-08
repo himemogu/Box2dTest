@@ -201,7 +201,7 @@ void HelloWorld::addNewSpriteAtPosition(CCPoint p)
     
     b2Body *body = world->CreateBody(&bodyDef);
 
-    body->SetLinearVelocity(b2Vec2(10, 5));
+    body->SetLinearVelocity(b2Vec2(10, 5)); // 速度
     
     // Define another box shape for our dynamic body.
     // 物体の形
